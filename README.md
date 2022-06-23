@@ -11,7 +11,7 @@ Add the following dependency in entry/package.json
 ## Usage Instructions
 
 ### -Input Chip
-![inputchip.png](images/inputchip.png)
+![inputchip.png](Images/inputchip.png)
 ```
 Import:
 
@@ -40,7 +40,7 @@ struct Index {
 }
 ```
 ### -Choice Chip
-![choicechip.png](images/ChoiceChip.png)
+![choicechip.png](Images/ChoiceChip.png)
 ```
 Import:
 
@@ -71,7 +71,7 @@ struct Index {
 }
 ```
 ### -Filter Chip
-![filterechip.png](images/FilterChip.png)
+![filterechip.png](Images/FilterChip.png)
 ```
 Import:
 
@@ -106,7 +106,7 @@ struct Index {
 }
 ```
 ### -Action Chip
-![actionchip.png](images/ActionChip.png)
+![actionchip.png](Images/ActionChip.png)
 ```
 Import:
 
@@ -134,7 +134,7 @@ struct Index {
 }
 ```
 ### -Edit Chip
-![editchip.png](images/EditChip.png)
+![editchip.png](Images/EditChip.png)
 ```
 Import:
 
