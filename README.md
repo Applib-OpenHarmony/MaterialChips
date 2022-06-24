@@ -175,9 +175,7 @@ Supports OpenHarmony API version 8
 |     |---- README.MD  # installation and usage
 ```
 ## Code Contribution
-If you find any problems during usage, you can submit an [Issue](https://github.com/Applib-OpenHarmony/Material_UI_Chips
-/issues) to us. Of course, we also welcome you to send us [PR](https://github.com/Applib-OpenHarmony/Material_UI_FAB/pulls).
+If you find any problems during usage, you can submit an [Issue](https://github.com/Applib-OpenHarmony/Material_UI_Chips/issues) to us. Of course, we also welcome you to send us [PR](https://github.com/Applib-OpenHarmony/Material_UI_Chips/pulls).
 
 ## Open source License
-This project is based on [Apache License 2.0](https://github.com/Applib-OpenHarmony/Material_UI_Chips
-/blob/main/LICENSE), please enjoy and participate in open source freely.
+This project is based on [Apache License 2.0](https://github.com/Applib-OpenHarmony/Material_UI_Chips/blob/main/LICENSE), please enjoy and participate in open source freely.
