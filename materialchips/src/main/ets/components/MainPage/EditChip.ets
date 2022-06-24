@@ -15,10 +15,10 @@
  */
 @Component
 export struct EditChip {
-  @State Dest: number= 0
-  @State Sub: number= 1
-  @State Tic: number= 0
-  @State Rad: number= 0
+  @State Delete: number= 0
+  @State InputTextScale: number= 1
+  @State TickSize: number= 0
+  @State Radius: number= 0
   @State ChipId: number= -1
   @State text: string = ''
   @State checked: boolean = false
@@ -30,20 +30,20 @@ export struct EditChip {
     animateTo({
       duration: 100,
       onFinish: () => {
-        this.Rad = 0
+        this.Radius = 0
         this.color = this.col
       }
     }, () => {
-      this.Rad = 200
-      this.Dest = 0
-      this.Sub = 1
+      this.Radius = 200
+      this.Delete = 0
+      this.InputTextScale = 1
     })
   }
 
   private Destroy() {
     this.color = '#DCDCDC'
     animateTo({ duration: 100 }, () => {
-      this.Dest = 0
+      this.Delete = 0
     })
   }
 
@@ -55,8 +55,8 @@ export struct EditChip {
           .placeholderColor(Color.Blue)
           .placeholderFont({ size: 40, weight: FontWeight.Normal, style: FontStyle.Normal })
           .enterKeyType(EnterKeyType.Next)
-          .height(40 * this.Sub)
-          .fontSize(30 * this.Sub)
+          .height(40 * this.InputTextScale)
+          .fontSize(30 * this.InputTextScale)
           .fontWeight(FontWeight.Bold)
           .fontFamily("cursive")
           .fontStyle(FontStyle.Italic)
@@ -65,8 +65,8 @@ export struct EditChip {
             this.text = value
           })
           .onSubmit((enterKey) => {
-            this.Dest = 1
-            this.Sub = 0
+            this.Delete = 1
+            this.InputTextScale = 0
           })
           .onEditChanged((isEditing) => {
           })
@@ -75,23 +75,23 @@ export struct EditChip {
             Circle({ width: '1vp', height: '1vp' })
               .fill(this.col)
               .borderRadius('8vp')
-              .scale({ x: this.Rad, y: this.Rad })
+              .scale({ x: this.Radius, y: this.Radius })
               .clip(true)
             Text(this.text)
-              .fontSize(this.Dest * 20)
-              .margin({ left: this.Dest * 12, right: this.Dest * 12, top: this.Dest * 7, bottom: this.Dest * 7 })
+              .fontSize(this.Delete * 20)
+              .margin({ left: this.Delete * 12, right: this.Delete * 12, top: this.Delete * 7, bottom: this.Delete * 7 })
           }
 
           Image($r("app.media.cross"))
-            .width(this.Dest * 16)
-            .height(this.Dest * 16)
-            .margin({ right: this.Dest * 16 })
+            .width(this.Delete * 16)
+            .height(this.Delete * 16)
+            .margin({ right: this.Delete * 16 })
             .onClick(() => this.Destroy())
         }
         .borderRadius('8vp')
         .backgroundColor('#DCDCDC')
         .onClick(() => this.onClick())
-        .margin(this.Dest * 8)
+        .margin(this.Delete * 8)
         .clip(true)
       }
     }

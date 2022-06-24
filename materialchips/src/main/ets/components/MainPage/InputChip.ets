@@ -25,7 +25,7 @@ export struct InputChip {
   @State checked: boolean = false
   @State private activatecolor: string = '#800080'
   @State color: string = this.chipcolor
-  @State bradius: number = 8
+  @State borderradius: number = 8
 
   build() {
     Column() {
@@ -39,7 +39,7 @@ export struct InputChip {
           .fontColor(this.checked ? this.activetextcolor : this.textcolor)
           .margin({ left: 12, right: 12, top: 7, bottom: 7 })
       }
-      .borderRadius(this.bradius)
+      .borderRadius(this.borderradius)
       .backgroundColor(this.chipcolor)
       .backgroundColor(this.checked ? this.color : this.chipcolor)
       .margin(8)

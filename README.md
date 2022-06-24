@@ -11,6 +11,9 @@ Add the following dependency in entry/package.json
 ## Usage Instructions
 
 ### -Input Chip
+
+Input chips represent information used in fields, such as an entity or different attributes.
+
 ![inputchip.png](Images/inputchip.png)
 ```
 Import:
@@ -40,6 +43,8 @@ struct Index {
 }
 ```
 ### -Choice Chip
+In sets that contain at least two options, choice chips represent a single selection.
+
 ![choicechip.png](Images/ChoiceChip.png)
 ```
 Import:
@@ -71,6 +76,8 @@ struct Index {
 }
 ```
 ### -Filter Chip
+Filter chips represent filters for a collection.
+
 ![filterechip.png](Images/FilterChip.png)
 ```
 Import:
@@ -106,6 +113,8 @@ struct Index {
 }
 ```
 ### -Action Chip
+Action chips trigger actions related to primary content.
+
 ![actionchip.png](Images/ActionChip.png)
 ```
 Import:
@@ -134,6 +143,8 @@ struct Index {
 }
 ```
 ### -Edit Chip
+The content of these chips can be edited.
+
 ![editchip.png](Images/EditChip.png)
 ```
 Import:

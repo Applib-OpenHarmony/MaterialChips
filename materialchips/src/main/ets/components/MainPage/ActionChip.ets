@@ -15,7 +15,7 @@
  */
 @Component
 export struct ActionChip {
-  @State Rad: number= 0
+  @State Radius: number= 0
   private textsize: number= 20
   private imagesize: number= 16
   @State private textcolor: string = '#000000'
@@ -26,7 +26,7 @@ export struct ActionChip {
   @State checked: boolean = false
   @State private activatecolor: string = '#800080'
   @State color: string = this.chipcolor
-  @State bradius: number = 8
+  @State borderradius: number = 8
 
   private onClick() {
     if (!this.checked) {
@@ -34,21 +34,17 @@ export struct ActionChip {
       animateTo({
         duration: 100,
         onFinish: () => {
-          this.Rad = 0
+          this.Radius = 0
           this.color = this.activatecolor
         }
       }, () => {
-        this.Rad = 200
+        this.Radius = 200
       })
     }
     else {
       this.color = this.chipcolor
       this.checked = false
     }
-  }
-
-  private Destroy() {
-    this.color = this.chipcolor
   }
 
   build() {
@@ -62,7 +58,7 @@ export struct ActionChip {
           Circle({ width: '1vp', height: '1vp' })
             .fill(this.activatecolor)
             .borderRadius('8vp')
-            .scale({ x: this.Rad, y: this.Rad })
+            .scale({ x: this.Radius, y: this.Radius })
             .clip(true)
           Text(this.text)
             .fontSize(this.textsize)
@@ -70,7 +66,7 @@ export struct ActionChip {
             .margin({ left: 12, right: 12, top: 7, bottom: 7 })
         }
       }
-      .borderRadius(this.bradius)
+      .borderRadius(this.borderradius)
       .backgroundColor(this.chipcolor)
       .backgroundColor(this.checked ? this.color : this.chipcolor)
       .onClick(() => this.onClick())

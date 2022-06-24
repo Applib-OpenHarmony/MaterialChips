@@ -15,9 +15,9 @@
  */
 @Component
 export struct FilterChip {
-  @State Dest: number= 1
-  @State Tic: number= 0
-  @State Rad: number= 0
+  @State Delete: number= 1
+  @State TickSize: number= 0
+  @State Radius: number= 0
   @State ChipId: number= -1
   private textsize: number= 20
   private imagesize: number= 16
@@ -29,7 +29,7 @@ export struct FilterChip {
   @State checked: boolean = false
   @State private activatecolor: string = '#800080'
   @State color: string = this.chipcolor
-  @State bradius: number = 8
+  @State borderradius: number = 8
 
   private onClick() {
     if (!this.checked) {
@@ -37,19 +37,19 @@ export struct FilterChip {
       animateTo({
         duration: 100,
         onFinish: () => {
-          this.Rad = 0
+          this.Radius = 0
           this.color = this.activatecolor
         }
       }, () => {
-        this.Rad = 200
+        this.Radius = 200
       })
       animateTo({ duration: 100 }, () => {
-        this.Tic = 1
+        this.TickSize = 1
       })
     }
     else {
       animateTo({ duration: 100 }, () => {
-        this.Tic = 0
+        this.TickSize = 0
       })
       this.color = this.chipcolor
       this.checked = false
@@ -59,7 +59,7 @@ export struct FilterChip {
   private Destroy() {
     this.color = this.chipcolor
     animateTo({ duration: 100 }, () => {
-      this.Dest = 0
+      this.Delete = 0
     })
   }
 
@@ -67,37 +67,37 @@ export struct FilterChip {
     Column() {
       Row() {
         Image(this.img)
-          .width(this.img == "" || this.img == undefined ? 0 : this.Dest * this.imagesize)
-          .height(this.img == null || this.img == undefined ? 0 : this.Dest * this.imagesize)
-          .margin(this.img == "" || this.img == undefined ? 0 : this.Dest * 4)
+          .width(this.img == "" || this.img == undefined ? 0 : this.Delete * this.imagesize)
+          .height(this.img == null || this.img == undefined ? 0 : this.Delete * this.imagesize)
+          .margin(this.img == "" || this.img == undefined ? 0 : this.Delete * 4)
         Image($r("app.media.Tick"))
-          .width(this.Tic * 18 * this.Dest)
-          .height(this.Tic * this.Dest * 18)
-          .scale({ x: this.Tic, y: this.Tic })
-          .margin({ left: this.Tic * this.Dest * 8, top: this.Tic * this.Dest * 7, bottom: this.Tic * this.Dest * 7 })
+          .width(this.TickSize * 18 * this.Delete)
+          .height(this.TickSize * this.Delete * 18)
+          .scale({ x: this.TickSize, y: this.TickSize })
+          .margin({ left: this.TickSize * this.Delete * 8, top: this.TickSize * this.Delete * 7, bottom: this.TickSize * this.Delete * 7 })
         Stack() {
           Circle({ width: '1vp', height: '1vp' })
             .fill(this.activatecolor)
             .borderRadius('8vp')
-            .scale({ x: this.Rad, y: this.Rad })
+            .scale({ x: this.Radius, y: this.Radius })
             .clip(true)
           Text(this.text)
-            .fontSize(this.Dest * this.textsize)
+            .fontSize(this.Delete * this.textsize)
             .fontColor(this.checked ? this.activetextcolor : this.textcolor)
-            .margin({ left: this.Dest * 12, right: this.Dest * 12, top: this.Dest * 7, bottom: this.Dest * 7 })
+            .margin({ left: this.Delete * 12, right: this.Delete * 12, top: this.Delete * 7, bottom: this.Delete * 7 })
         }
 
         Image($r("app.media.cross"))
-          .width(this.Dest * 16)
-          .height(this.Dest * 16)
-          .margin({ right: this.Dest * 16 })
+          .width(this.Delete * 16)
+          .height(this.Delete * 16)
+          .margin({ right: this.Delete * 16 })
           .onClick(() => this.Destroy())
       }
-      .borderRadius(this.bradius)
+      .borderRadius(this.borderradius)
       .backgroundColor(this.chipcolor)
       .backgroundColor(this.checked ? this.color : this.chipcolor)
       .onClick(() => this.onClick())
-      .margin(this.Dest * 8)
+      .margin(this.Delete * 8)
       .clip(true)
     }
   }
