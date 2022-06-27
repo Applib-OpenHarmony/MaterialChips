@@ -17,6 +17,18 @@ import { FilterChip, ChipSet, ChooseChip, EditChip, ActionChip, InputChip } from
 @Entry
 @Component
 struct Index {
+  private inputchip1: InputChip.Model = new InputChip.Model("Input ")
+  private filterchip1: FilterChip.Model = new FilterChip.Model("CheckBox Unselected")
+  private filterchip2: FilterChip.Model = new FilterChip.Model("CheckBox ")
+  private actionchip1: ActionChip.Model = new ActionChip.Model("Action ")
+  private editchip: EditChip.Model = new EditChip.Model()
+  aboutToAppear() {
+    this.inputchip1.setTextColor('#938200')
+    this.filterchip1.setActiveChipColor(Color.Blue)
+    this.filterchip2.setActiveChipColor(Color.Red).setTextSize(24)
+    this.actionchip1.setActiveChipColor(Color.Green).setTextSize(16).setImage($r('app.media.Bike'))
+    this.editchip.setChipColor(Color.Blue)
+  }
   @State ChoseChip: number = -1
   private Set: ChooseChip [] = [
     new ChooseChip(1, "Op1"),
@@ -28,12 +40,7 @@ struct Index {
       Text("Input Chip").fontSize('26vp')
       Flex({justifyContent: FlexAlign.Start}) {
         InputChip({
-          text: "New Jersey",
-          textsize: 24,
-          img: $r('app.media.Location'),
-          imagesize: 26,
-          chipcolor: '#D3D3D3',
-          borderradius: 10
+          model: this.inputchip1
         })
       }
       Text("Choice Chip").fontSize('26vp')
@@ -46,28 +53,22 @@ struct Index {
       Text("Filter Chip").fontSize('26vp')
       Flex({justifyContent: FlexAlign.Start}) {
         FilterChip({
-          text: "Op1"
+          model: this.filterchip1
         })
         FilterChip({
-          text: "Op2",
-          img: $r('app.media.Map')
-        })
-        FilterChip({
-          text: "Op3"
+          model: this.filterchip2
         })
       }
       Text("Action Chip").fontSize('26vp')
       Flex({justifyContent: FlexAlign.Start}) {
         ActionChip({
-          text: "Racing",
-          textsize: 24,
-          img: $r('app.media.Bike'),
-          imagesize: 26,
-          borderradius: 10
+          model: this.actionchip1
         })
       }
       Text("Edit Chip").fontSize('26vp')
-      EditChip({})
+      EditChip({
+        model: this.editchip
+      })
     }.alignItems(HorizontalAlign.Start)
     .width('100%')
   }

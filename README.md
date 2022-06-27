@@ -34,7 +34,7 @@ struct Index {
           img: $r('app.media.Location'),
           imagesize: 26,
           chipcolor: '#D3D3D3',
-          bradius: 10
+          borderradius: 10
         })
       }
     }
@@ -134,7 +134,7 @@ struct Index {
           textsize: 24,
           img: $r('app.media.Bike'),
           imagesize: 26,
-          bradius: 10
+          borderradius: 10
         })
       }
     }

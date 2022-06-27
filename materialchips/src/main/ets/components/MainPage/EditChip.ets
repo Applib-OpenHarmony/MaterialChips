@@ -19,19 +19,14 @@ export struct EditChip {
   @State InputTextScale: number= 1
   @State TickSize: number= 0
   @State Radius: number= 0
-  @State ChipId: number= -1
   @State text: string = ''
   @State checked: boolean = false
-  @State private col: string = '#DCDCDC'
-  @State color: string = '#DCDCDC'
-  @State num: number = 0
-
+  @State private model: EditChip.Model = undefined
   private onClick() {
     animateTo({
       duration: 100,
       onFinish: () => {
         this.Radius = 0
-        this.color = this.col
       }
     }, () => {
       this.Radius = 200
@@ -41,7 +36,6 @@ export struct EditChip {
   }
 
   private Destroy() {
-    this.color = '#DCDCDC'
     animateTo({ duration: 100 }, () => {
       this.Delete = 0
     })
@@ -73,7 +67,7 @@ export struct EditChip {
         Row() {
           Stack() {
             Circle({ width: '1vp', height: '1vp' })
-              .fill(this.col)
+              .fill(this.model.getChipColor())
               .borderRadius('8vp')
               .scale({ x: this.Radius, y: this.Radius })
               .clip(true)
@@ -89,11 +83,87 @@ export struct EditChip {
             .onClick(() => this.Destroy())
         }
         .borderRadius('8vp')
-        .backgroundColor('#DCDCDC')
+        .backgroundColor(this.model.getChipColor())
         .onClick(() => this.onClick())
         .margin(this.Delete * 8)
         .clip(true)
       }
+    }
+  }
+}
+export namespace EditChip {
+
+  class Properties {
+    private textsize: number= 20
+    private textcolor: ResourceColor | string = '#000000'
+    private chipcolor: ResourceColor | string = '#DCDCDC'
+    private color: ResourceColor | string = this.chipcolor
+    private borderradius: number = 8
+
+
+    getTextSize(): number {
+      return this.textsize
+    }
+
+    setTextSize(textsize: number): Properties {
+      if (textsize != null && textsize != undefined) {
+        this.textsize = textsize;
+      } else {
+        this.textsize = 20;
+      }
+      return this
+    }
+    getBorderRadius(): number {
+      return this.borderradius
+    }
+
+    setBorderRadius(borderradius: number): Properties {
+      if (borderradius != null && borderradius != undefined) {
+        this.borderradius = borderradius;
+      } else {
+        this.borderradius = 8;
+      }
+      return this
+    }
+
+    getTextColor(): ResourceColor | string {
+      return this.textcolor
+    }
+
+    setTextColor(textcolor: ResourceColor | string): Properties {
+      this.textcolor = (textcolor != null && textcolor != undefined) ? textcolor : '#000000';
+      return this
+    }
+
+    getColor(): ResourceColor | string {
+      return this.color
+    }
+    setColor(color: ResourceColor | string): Properties {
+      this.color = (color != null && color != undefined) ? color : this.chipcolor;
+      return this
+    }
+    getChipColor(): ResourceColor | string {
+      return this.chipcolor
+    }
+
+    setChipColor(chipcolor: ResourceColor | string): Properties {
+      this.chipcolor = (chipcolor != null && chipcolor != undefined) ? chipcolor : '#000000';
+      return this
+    }
+
+    reset() {
+      this.textsize = 20
+
+      this.borderradius = 8
+      this.textcolor = '#000000'
+      this.chipcolor = '#DCDCDC'
+
+    }
+  }
+
+  export class Model extends Properties {
+    constructor() {
+      super()
     }
   }
 }
