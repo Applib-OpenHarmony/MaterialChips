@@ -20,6 +20,7 @@ export struct ActionChip {
   @State radius: number= 0
   @State checked: boolean = false
   @State private model: ActionChip.Model = undefined
+
   private onClick() {
     if (!this.checked) {
       this.checked = true
@@ -44,6 +45,7 @@ export struct ActionChip {
       this.checked = false
     }
   }
+
   build() {
     Column() {
       Row() {
@@ -71,6 +73,7 @@ export struct ActionChip {
     }
   }
 }
+
 export namespace ActionChip {
 
   export class Model {
@@ -88,6 +91,7 @@ export namespace ActionChip {
     getText(): string | Resource {
       return this.text
     }
+
     setText(text: string | Resource): Model {
       if (text != null && text != undefined) {
         this.text = text;
@@ -96,9 +100,11 @@ export namespace ActionChip {
       }
       return this
     }
+
     getImage(): string | Resource {
       return this.img
     }
+
     setImage(img: string | Resource): Model {
       if (img != null && img != undefined) {
         this.img = img;
@@ -107,6 +113,7 @@ export namespace ActionChip {
       }
       return this
     }
+
     getImageSize(): number {
       return this.imgSize
     }
@@ -119,6 +126,7 @@ export namespace ActionChip {
       }
       return this
     }
+
     getTextSize(): number {
       return this.textSize
     }
@@ -131,6 +139,7 @@ export namespace ActionChip {
       }
       return this
     }
+
     getBorderRadius(): number {
       return this.borderRadius
     }
@@ -161,13 +170,16 @@ export namespace ActionChip {
       this.activeTextColor = (activeTextColor != null && activeTextColor != undefined) ? activeTextColor : '#000000';
       return this
     }
+
     getColor(): ResourceColor | string {
       return this.color
     }
+
     setColor(color: ResourceColor | string): Model {
       this.color = (color != null && color != undefined) ? color : this.chipColor;
       return this
     }
+
     getChipColor(): ResourceColor | string {
       return this.chipColor
     }

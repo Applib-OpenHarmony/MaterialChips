@@ -20,6 +20,7 @@ export struct FilterChip {
   @State radius: number= 0
   @State checked: boolean = false
   @State private model: FilterChip.Model = undefined
+
   private onClick() {
     if (!this.checked) {
       this.checked = true
@@ -44,12 +45,14 @@ export struct FilterChip {
       this.checked = false
     }
   }
+
   private destroy() {
     this.model.setChipColor(this.model.getChipColor())
     animateTo({ duration: 100 }, () => {
       this.delete = 0
     })
   }
+
   build() {
     Column() {
       Row() {
@@ -61,7 +64,11 @@ export struct FilterChip {
           .width(this.tickSize * 18 * this.delete)
           .height(this.tickSize * this.delete * 18)
           .scale({ x: this.tickSize, y: this.tickSize })
-          .margin({ left: this.tickSize * this.delete * 8, top: this.tickSize * this.delete * 7, bottom: this.tickSize * this.delete * 7 })
+          .margin({
+            left: this.tickSize * this.delete * 8,
+            top: this.tickSize * this.delete * 7,
+            bottom: this.tickSize * this.delete * 7
+          })
         Stack() {
           Circle({ width: '1vp', height: '1vp' })
             .fill(this.model.getActiveChipColor())
@@ -73,6 +80,7 @@ export struct FilterChip {
             .fontColor(this.checked ? this.model.getActiveTextColor() : this.model.getTextColor())
             .margin({ left: this.delete * 12, right: this.delete * 12, top: this.delete * 7, bottom: this.delete * 7 })
         }
+
         Image($r("app.media.cross"))
           .width(this.delete * 16)
           .height(this.delete * 16)
@@ -87,6 +95,7 @@ export struct FilterChip {
     }
   }
 }
+
 export namespace FilterChip {
 
   export class Model {
@@ -104,6 +113,7 @@ export namespace FilterChip {
     getText(): string | Resource {
       return this.text
     }
+
     setText(text: string | Resource): Model {
       if (text != null && text != undefined) {
         this.text = text;
@@ -112,9 +122,11 @@ export namespace FilterChip {
       }
       return this
     }
+
     getImage(): string | Resource {
       return this.img
     }
+
     setImage(img: string | Resource): Model {
       if (img != null && img != undefined) {
         this.img = img;
@@ -123,6 +135,7 @@ export namespace FilterChip {
       }
       return this
     }
+
     getImageSize(): number {
       return this.imgSize
     }
@@ -135,6 +148,7 @@ export namespace FilterChip {
       }
       return this
     }
+
     getTextSize(): number {
       return this.textSize
     }
@@ -147,6 +161,7 @@ export namespace FilterChip {
       }
       return this
     }
+
     getBorderRadius(): number {
       return this.borderRadius
     }
@@ -177,13 +192,16 @@ export namespace FilterChip {
       this.activeTextColor = (activeTextColor != null && activeTextColor != undefined) ? activeTextColor : '#000000';
       return this
     }
+
     getColor(): ResourceColor | string {
       return this.color
     }
+
     setColor(color: ResourceColor | string): Model {
       this.color = (color != null && color != undefined) ? color : this.chipColor;
       return this
     }
+
     getChipColor(): ResourceColor | string {
       return this.chipColor
     }

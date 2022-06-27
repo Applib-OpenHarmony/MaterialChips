@@ -22,6 +22,7 @@ export struct EditChip {
   @State text: string = ''
   @State checked: boolean = false
   @State private model: EditChip.Model = undefined
+
   private onClick() {
     animateTo({
       duration: 100,
@@ -74,7 +75,12 @@ export struct EditChip {
             Text(this.text)
               .fontSize(this.Delete * this.model.getTextSize())
               .fontColor(this.model.getTextColor())
-              .margin({ left: this.Delete * 12, right: this.Delete * 12, top: this.Delete * 7, bottom: this.Delete * 7 })
+              .margin({
+                left: this.Delete * 12,
+                right: this.Delete * 12,
+                top: this.Delete * 7,
+                bottom: this.Delete * 7
+              })
           }
 
           Image($r("app.media.cross"))
@@ -92,6 +98,7 @@ export struct EditChip {
     }
   }
 }
+
 export namespace EditChip {
 
   export class Model {
@@ -114,6 +121,7 @@ export namespace EditChip {
       }
       return this
     }
+
     getBorderRadius(): number {
       return this.borderRadius
     }
@@ -139,10 +147,12 @@ export namespace EditChip {
     getColor(): ResourceColor | string {
       return this.color
     }
+
     setColor(color: ResourceColor | string): Model {
       this.color = (color != null && color != undefined) ? color : this.chipColor;
       return this
     }
+
     getChipColor(): ResourceColor | string {
       return this.chipColor
     }

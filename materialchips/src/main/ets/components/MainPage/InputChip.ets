@@ -20,6 +20,7 @@ export struct InputChip {
   @State radius: number= 0
   @State checked: boolean = false
   @State private model: InputChip.Model = undefined
+
   build() {
     Column() {
       Row() {
@@ -46,6 +47,7 @@ export struct InputChip {
     }
   }
 }
+
 export namespace InputChip {
 
   export class Model {
@@ -63,6 +65,7 @@ export namespace InputChip {
     getText(): string | Resource {
       return this.text
     }
+
     setText(text: string | Resource): Model {
       if (text != null && text != undefined) {
         this.text = text;
@@ -71,9 +74,11 @@ export namespace InputChip {
       }
       return this
     }
+
     getImage(): string | Resource {
       return this.img
     }
+
     setImage(img: string | Resource): Model {
       if (img != null && img != undefined) {
         this.img = img;
@@ -82,6 +87,7 @@ export namespace InputChip {
       }
       return this
     }
+
     getImageSize(): number {
       return this.imgSize
     }
@@ -94,6 +100,7 @@ export namespace InputChip {
       }
       return this
     }
+
     getTextSize(): number {
       return this.textSize
     }
@@ -106,6 +113,7 @@ export namespace InputChip {
       }
       return this
     }
+
     getBorderRadius(): number {
       return this.borderRadius
     }
@@ -136,13 +144,16 @@ export namespace InputChip {
       this.activeTextColor = (activeTextColor != null && activeTextColor != undefined) ? activeTextColor : '#000000';
       return this
     }
+
     getColor(): ResourceColor | string {
       return this.color
     }
+
     setColor(color: ResourceColor | string): Model {
       this.color = (color != null && color != undefined) ? color : this.chipColor;
       return this
     }
+
     getChipColor(): ResourceColor | string {
       return this.chipColor
     }
