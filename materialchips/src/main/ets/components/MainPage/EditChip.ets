@@ -73,6 +73,7 @@ export struct EditChip {
               .clip(true)
             Text(this.text)
               .fontSize(this.Delete * 20)
+              .fontColor(this.model.getTextColor())
               .margin({ left: this.Delete * 12, right: this.Delete * 12, top: this.Delete * 7, bottom: this.Delete * 7 })
           }
 

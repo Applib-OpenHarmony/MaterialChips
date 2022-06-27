@@ -18,8 +18,8 @@ import { FilterChip, ChipSet, ChooseChip, EditChip, ActionChip, InputChip } from
 @Component
 struct Index {
   private inputchip1: InputChip.Model = new InputChip.Model("Input ")
-  private filterchip1: FilterChip.Model = new FilterChip.Model("CheckBox Unselected")
-  private filterchip2: FilterChip.Model = new FilterChip.Model("CheckBox ")
+  private filterchip1: FilterChip.Model = new FilterChip.Model("Op1")
+  private filterchip2: FilterChip.Model = new FilterChip.Model("Op2")
   private actionchip1: ActionChip.Model = new ActionChip.Model("Action ")
   private editchip: EditChip.Model = new EditChip.Model()
   aboutToAppear() {
