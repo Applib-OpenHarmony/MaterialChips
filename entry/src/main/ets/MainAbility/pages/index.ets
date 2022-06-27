@@ -17,17 +17,17 @@ import { FilterChip, ChipSet, ChooseChip, EditChip, ActionChip, InputChip } from
 @Entry
 @Component
 struct Index {
-  private inputchip1: InputChip.Model = new InputChip.Model("Input ")
-  private filterchip1: FilterChip.Model = new FilterChip.Model("Op1")
-  private filterchip2: FilterChip.Model = new FilterChip.Model("Op2")
-  private actionchip1: ActionChip.Model = new ActionChip.Model("Action ")
+  private inputchip1: InputChip.Model = new InputChip.Model()
+  private filterchip1: FilterChip.Model = new FilterChip.Model()
+  private filterchip2: FilterChip.Model = new FilterChip.Model()
+  private actionchip1: ActionChip.Model = new ActionChip.Model()
   private editchip: EditChip.Model = new EditChip.Model()
   aboutToAppear() {
-    this.inputchip1.setTextColor('#938200')
-    this.filterchip1.setActiveChipColor(Color.Blue)
-    this.filterchip2.setActiveChipColor(Color.Red).setTextSize(24)
-    this.actionchip1.setActiveChipColor(Color.Green).setTextSize(16).setImage($r('app.media.Bike'))
-    this.editchip.setChipColor(Color.Blue)
+    this.inputchip1.setTextColor('#938200').setText("New Jeresy")
+    this.filterchip1.setActiveChipColor(Color.Blue).setText("Cricket")
+    this.filterchip2.setActiveChipColor(Color.Red).setTextSize(24).setText("Football")
+    this.actionchip1.setActiveChipColor(Color.Green).setTextSize(16).setImage($r('app.media.Bike')).setText("Racing")
+    this.editchip.setChipColor(Color.Blue).setTextColor(Color.Red)
   }
   @State ChoseChip: number = -1
   private Set: ChooseChip [] = [

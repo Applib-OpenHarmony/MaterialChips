@@ -25,19 +25,19 @@ Usage:
 @Entry
 @Component
 struct Index {
+  private inputchip1: InputChip.Model = new InputChip.Model()
+  aboutToAppear() {
+    this.inputchip1.setText("New Jeresy").setTextSize(24).setImage($r('app.media.Location')).setImageSize(26).setChipColor('#D3D3D3').setBorderRadius(10)
+  }
   build() {
     Column() {
-      Flex({ justifyContent: FlexAlign.Start }) {
+      Text("Input Chip").fontSize('26vp')
+      Flex({justifyContent: FlexAlign.Start}) {
         InputChip({
-          text: "New Jersey",
-          textsize: 24,
-          img: $r('app.media.Location'),
-          imagesize: 26,
-          chipcolor: '#D3D3D3',
-          borderradius: 10
+          model: this.inputchip1
         })
       }
-    }
+    }.alignItems(HorizontalAlign.Start)
     .width('100%')
   }
 }
@@ -89,25 +89,29 @@ Usage:
 @Entry
 @Component
 struct Index {
+  private filterchip1: FilterChip.Model = new FilterChip.Model()
+  private filterchip2: FilterChip.Model = new FilterChip.Model()
+  private filterchip3: FilterChip.Model = new FilterChip.Model()
+  aboutToAppear() {
+    this.filterchip1.setText("Op1").setTextSize(20)
+    this.filterchip2.setText("Op2").setTextSize(20)
+    this.filterchip3.setText("Op3").setTextSize(20)
+  }
   build() {
     Column() {
-      Flex({ justifyContent: FlexAlign.Start }) {
+      Text("Filter Chip").fontSize('26vp')
+      Flex({justifyContent: FlexAlign.Start}) {
         FilterChip({
-          text: "Op1",
-          textsize: 20
+          model: this.filterchip1
         })
-        
         FilterChip({
-          text: "Op2",
-          textsize: 20
+          model: this.filterchip2
         })
-        
         FilterChip({
-          text: "Op3",
-          textsize: 20
+          model: this.filterchip3
         })
       }
-    }
+    }.alignItems(HorizontalAlign.Start)
     .width('100%')
   }
 }
@@ -126,18 +130,19 @@ Usage:
 @Entry
 @Component
 struct Index {
+  private actionchip: ActionChip.Model = new ActionChip.Model()
+  aboutToAppear() {
+    this.actionchip.setText("Racing").setTextSize(24).setImage($r('app.media.Bike')).setImageSize(26).setBorderRadius(10)
+  }
   build() {
     Column() {
-      Flex({ justifyContent: FlexAlign.Start }) {
+      Text("Action Chip").fontSize('26vp')
+      Flex({justifyContent: FlexAlign.Start}) {
         ActionChip({
-          text: "Racing",
-          textsize: 24,
-          img: $r('app.media.Bike'),
-          imagesize: 26,
-          borderradius: 10
+          model: this.actionchip
         })
       }
-    }
+    }.alignItems(HorizontalAlign.Start)
     .width('100%')
   }
 }
@@ -156,10 +161,19 @@ Usage:
 @Entry
 @Component
 struct Index {
+  private editchip: EditChip.Model = new EditChip.Model()
+  aboutToAppear() {
+    this.editchip.setTextSize(24).setTextColor(Color.Blue)
+  }
   build() {
     Column() {
-      EditChip({})
-    }
+      Text("Edit Chip").fontSize('26vp')
+      Flex({justifyContent: FlexAlign.Start}) {
+        EditChip({
+          model: this.editchip
+        })
+      }
+    }.alignItems(HorizontalAlign.Start)
     .width('100%')
   }
 }

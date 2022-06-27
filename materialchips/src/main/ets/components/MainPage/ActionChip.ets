@@ -15,9 +15,9 @@
  */
 @Component
 export struct ActionChip {
-  @State Delete: number= 1
-  @State TickSize: number= 0
-  @State Radius: number= 0
+  @State delete: number= 1
+  @State tickSize: number= 0
+  @State radius: number= 0
   @State checked: boolean = false
   @State private model: ActionChip.Model = undefined
   private onClick() {
@@ -26,25 +26,24 @@ export struct ActionChip {
       animateTo({
         duration: 100,
         onFinish: () => {
-          this.Radius = 0
+          this.radius = 0
           this.model.setColor(this.model.getActiveChipColor())
         }
       }, () => {
-        this.Radius = 200
+        this.radius = 200
       })
       animateTo({ duration: 100 }, () => {
-        this.TickSize = 1
+        this.tickSize = 1
       })
     }
     else {
       animateTo({ duration: 100 }, () => {
-        this.TickSize = 0
+        this.tickSize = 0
       })
       this.model.setColor(this.model.getChipColor())
       this.checked = false
     }
   }
-
   build() {
     Column() {
       Row() {
@@ -56,39 +55,51 @@ export struct ActionChip {
           Circle({ width: '1vp', height: '1vp' })
             .fill(this.model.getActiveChipColor())
             .borderRadius('8vp')
-            .scale({ x: this.Radius, y: this.Radius })
+            .scale({ x: this.radius, y: this.radius })
             .clip(true)
           Text(this.model.getText())
-            .fontSize(this.Delete * this.model.getTextSize())
+            .fontSize(this.delete * this.model.getTextSize())
             .fontColor(this.checked ? this.model.getActiveTextColor() : this.model.getTextColor())
-            .margin({ left: this.Delete * 12, right: this.Delete * 12, top: this.Delete * 7, bottom: this.Delete * 7 })
+            .margin({ left: this.delete * 12, right: this.delete * 12, top: this.delete * 7, bottom: this.delete * 7 })
         }
       }
       .borderRadius(this.model.getBorderRadius())
       .backgroundColor(this.checked ? this.model.getColor() : this.model.getChipColor())
+      .margin(this.delete * 8)
       .onClick(() => this.onClick())
-      .margin(this.Delete * 8)
       .clip(true)
     }
   }
 }
 export namespace ActionChip {
 
-  class Properties {
+  export class Model {
+    private text: string | Resource = ""
     private img: string | Resource = ""
-    private imgsize: number= 16
-    private textsize: number= 20
-    private textcolor: ResourceColor | string = '#000000'
-    private activetextcolor: ResourceColor | string = '#000000'
-    private chipcolor: ResourceColor | string = '#DCDCDC'
-    private activechipcolor: ResourceColor | string = '#800080'
-    private color: ResourceColor | string = this.chipcolor
-    private borderradius: number = 8
+    private textSize: number= 20
+    private imgSize: number= 16
+    private textColor: ResourceColor | string = '#000000'
+    private activeTextColor: ResourceColor | string = '#000000'
+    private chipColor: ResourceColor | string = '#DCDCDC'
+    private activeChipColor: ResourceColor | string = '#800080'
+    private color: ResourceColor | string = this.chipColor
+    private borderRadius: number = 8
 
+    getText(): string | Resource {
+      return this.text
+    }
+    setText(text: string | Resource): Model {
+      if (text != null && text != undefined) {
+        this.text = text;
+      } else {
+        this.text = "";
+      }
+      return this
+    }
     getImage(): string | Resource {
       return this.img
     }
-    setImage(img: string | Resource): Properties {
+    setImage(img: string | Resource): Model {
       if (img != null && img != undefined) {
         this.img = img;
       } else {
@@ -97,106 +108,94 @@ export namespace ActionChip {
       return this
     }
     getImageSize(): number {
-      return this.imgsize
+      return this.imgSize
     }
 
-    setImageSize(imgsize: number): Properties {
-      if (imgsize != null && imgsize != undefined) {
-        this.imgsize = imgsize;
+    setImageSize(imgSize: number): Model {
+      if (imgSize != null && imgSize != undefined) {
+        this.imgSize = imgSize;
       } else {
-        this.imgsize = 16;
+        this.imgSize = 16;
       }
       return this
     }
     getTextSize(): number {
-      return this.textsize
+      return this.textSize
     }
 
-    setTextSize(textsize: number): Properties {
-      if (textsize != null && textsize != undefined) {
-        this.textsize = textsize;
+    setTextSize(textSize: number): Model {
+      if (textSize != null && textSize != undefined) {
+        this.textSize = textSize;
       } else {
-        this.textsize = 20;
+        this.textSize = 20;
       }
       return this
     }
     getBorderRadius(): number {
-      return this.borderradius
+      return this.borderRadius
     }
 
-    setBorderRadius(borderradius: number): Properties {
-      if (borderradius != null && borderradius != undefined) {
-        this.borderradius = borderradius;
+    setBorderRadius(borderRadius: number): Model {
+      if (borderRadius != null && borderRadius != undefined) {
+        this.borderRadius = borderRadius;
       } else {
-        this.borderradius = 8;
+        this.borderRadius = 8;
       }
       return this
     }
 
     getTextColor(): ResourceColor | string {
-      return this.textcolor
+      return this.textColor
     }
 
-    setTextColor(textcolor: ResourceColor | string): Properties {
-      this.textcolor = (textcolor != null && textcolor != undefined) ? textcolor : '#000000';
+    setTextColor(textColor: ResourceColor | string): Model {
+      this.textColor = (textColor != null && textColor != undefined) ? textColor : '#000000';
       return this
     }
 
     getActiveTextColor(): ResourceColor | string {
-      return this.activetextcolor
+      return this.activeTextColor
     }
 
-    setActiveTextColor(activetextcolor: ResourceColor | string): Properties {
-      this.activetextcolor = (activetextcolor != null && activetextcolor != undefined) ? activetextcolor : '#000000';
+    setActiveTextColor(activeTextColor: ResourceColor | string): Model {
+      this.activeTextColor = (activeTextColor != null && activeTextColor != undefined) ? activeTextColor : '#000000';
       return this
     }
     getColor(): ResourceColor | string {
       return this.color
     }
-    setColor(color: ResourceColor | string): Properties {
-      this.color = (color != null && color != undefined) ? color : this.chipcolor;
+    setColor(color: ResourceColor | string): Model {
+      this.color = (color != null && color != undefined) ? color : this.chipColor;
       return this
     }
     getChipColor(): ResourceColor | string {
-      return this.chipcolor
+      return this.chipColor
     }
 
-    setChipColor(chipcolor: ResourceColor | string): Properties {
-      this.chipcolor = (chipcolor != null && chipcolor != undefined) ? chipcolor : '#000000';
+    setChipColor(chipColor: ResourceColor | string): Model {
+      this.chipColor = (chipColor != null && chipColor != undefined) ? chipColor : '#000000';
       return this
     }
 
     getActiveChipColor(): ResourceColor | string {
-      return this.activechipcolor
+      return this.activeChipColor
     }
 
-    setActiveChipColor(activechipcolor: ResourceColor | string): Properties {
-      this.activechipcolor = (activechipcolor != null && activechipcolor != undefined) ? activechipcolor : '#000000';
+    setActiveChipColor(activeChipColor: ResourceColor | string): Model {
+      this.activeChipColor = (activeChipColor != null && activeChipColor != undefined) ? activeChipColor : '#000000';
       return this
     }
 
     reset() {
-      this.textsize = 20
+      this.textSize = 20
 
-      this.borderradius = 8
-      this.textcolor = '#000000'
+      this.borderRadius = 8
+      this.textColor = '#000000'
 
-      this.activetextcolor = '#000000'
-      this.chipcolor = '#DCDCDC'
+      this.activeTextColor = '#000000'
+      this.chipColor = '#DCDCDC'
 
-      this.activechipcolor = '#800080'
-    }
-  }
-
-  export class Model extends Properties {
-    private text: string | Resource = undefined
-    constructor(text: string | Resource) {
-      super()
-      this.text = text
-    }
-
-    getText(): string | Resource {
-      return this.text
+      this.activeChipColor = '#800080'
     }
   }
 }
