@@ -93,9 +93,9 @@ struct Index {
   private filterchip2: FilterChip.Model = new FilterChip.Model()
   private filterchip3: FilterChip.Model = new FilterChip.Model()
   aboutToAppear() {
-    this.filterchip1.setText("Op1").setTextSize(20)
-    this.filterchip2.setText("Op2").setTextSize(20)
-    this.filterchip3.setText("Op3").setTextSize(20)
+    this.filterchip1.setText("Op1").setTextSize('20vp')
+    this.filterchip2.setText("Op2").setTextSize('20vp')
+    this.filterchip3.setText("Op3").setTextSize('20vp')
   }
   build() {
     Column() {

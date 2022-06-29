@@ -25,7 +25,7 @@ export class ChooseChip {
 @Component
 export struct ChipSet {
   @State choice: ChooseChip [] = []
-  @Link ChosenChipId: number
+  @Link chosenChipId: number
 
   build() {
     Row() {
@@ -33,11 +33,11 @@ export struct ChipSet {
         this.choice,
         (item) => {
           ChoiceChip({
-            ChipId: item.id,
+            chipId: item.id,
             text: item.text,
-            ChosenChip: $ChosenChipId,
-            checked: this.ChosenChipId == item.id,
-            color: this.ChosenChipId == item.id ? '#DCDCDC' : '#800080'
+            chosenChip: $chosenChipId,
+            checked: this.chosenChipId == item.id,
+            color: this.chosenChipId == item.id ? '#DCDCDC' : '#800080'
           })
         },
         item => item.id
@@ -48,15 +48,20 @@ export struct ChipSet {
 
 @Component
 export struct ChoiceChip {
-  @State Delete: number= 1
-  @State Radius: number= 0
-  @State ChipId: number= -1
+  @State radius: number = 0
+  @State chipId: number = -1
   private text: string | Resource = ""
-  private img: string | Resource = ""
-  @Link ChosenChip: number
+  @Link chosenChip: number
   @State checked: boolean = false
   @State private col: string = '#800080'
   @State color: string = '#DCDCDC'
+  private textSize: string = '20fp'
+  private marginLeft: string = '12vp'
+  private marginRight: string = '12vp'
+  private marginBottom: string = '7vp'
+  private marginTop: string = '7vp'
+  private cancelChip: string = '16vp'
+  private margin: string = '8vp'
 
   private onClick() {
     if (!this.checked) {
@@ -64,50 +69,57 @@ export struct ChoiceChip {
       animateTo({
         duration: 200,
         onFinish: () => {
-          this.Radius = 0
+          this.radius = 0
           this.color = this.col
         }
       }, () => {
-        this.Radius = 200
+        this.radius = 200
       })
-      this.ChosenChip = this.ChipId
+      this.chosenChip = this.chipId
     }
   }
 
-  private Destroy() {
+  private destroy() {
     animateTo({ duration: 100 }, () => {
-      this.Delete = 0
+      this.textSize = '0fp'
+      this.marginLeft = '0vp'
+      this.marginRight = '0vp'
+      this.marginBottom = '0vp'
+      this.marginTop = '0vp'
+      this.cancelChip = '0vp'
+      this.margin = '0vp'
     })
   }
 
   build() {
     Column() {
       Row() {
-        Image(this.img)
-          .width(this.img == "" || this.img == undefined ? 0 : this.Delete * 16)
-          .height(this.img == null || this.img == undefined ? 0 : this.Delete * 16)
-          .margin(this.img == "" || this.img == undefined ? 0 : this.Delete * 4)
         Stack() {
           Circle({ width: '1vp', height: '1vp' })
             .fill(this.col)
             .borderRadius('8vp')
-            .scale({ x: this.Radius, y: this.Radius })
+            .scale({ x: this.radius, y: this.radius })
             .clip(true)
           Text(this.text)
-            .fontSize(this.Delete * 20)
-            .margin({ left: this.Delete * 12, right: this.Delete * 12, top: this.Delete * 7, bottom: this.Delete * 7 })
+            .fontSize(this.textSize)
+            .margin({
+              left: this.marginLeft,
+              right: this.marginRight,
+              top: this.marginTop,
+              bottom: this.marginBottom
+            })
         }
 
         Image($r("app.media.cross"))
-          .width(this.Delete * 16)
-          .height(this.Delete * 16)
-          .margin({ right: this.Delete * 16 })
-          .onClick(() => this.Destroy())
+          .width(this.cancelChip)
+          .height(this.cancelChip)
+          .margin({ right: this.cancelChip })
+          .onClick(() => this.destroy())
       }
       .borderRadius('8vp')
       .backgroundColor(this.checked ? this.color : '#DCDCDC')
       .onClick(() => this.onClick())
-      .margin(this.Delete * 8)
+      .margin(this.margin)
       .clip(true)
     }
   }

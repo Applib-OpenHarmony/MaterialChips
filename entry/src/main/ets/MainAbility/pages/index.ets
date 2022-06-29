@@ -21,21 +21,23 @@ struct Index {
   private inputchip1: InputChip.Model = new InputChip.Model()
   private filterchip1: FilterChip.Model = new FilterChip.Model()
   private filterchip2: FilterChip.Model = new FilterChip.Model()
+  private filterchip3: FilterChip.Model = new FilterChip.Model()
   private actionchip1: ActionChip.Model = new ActionChip.Model()
   private editchip: EditChip.Model = new EditChip.Model()
 
   aboutToAppear() {
-    this.inputchip1.setTextColor('#938200').setText("New Jeresy")
+    this.inputchip1.setTextColor('#938200').setText("New Jeresy").setImage($r('app.media.Location'))
     this.filterchip1.setActiveChipColor(Color.Blue).setText("Cricket")
-    this.filterchip2.setActiveChipColor(Color.Red).setTextSize(24).setText("Football")
+    this.filterchip2.setTextSize('24vp').setActiveChipColor(Color.Red).setText("Football")
+    this.filterchip3.setActiveChipColor(Color.Red).setText("Football")
     this.actionchip1.setActiveChipColor(Color.Green)
-      .setTextSize(16)
+      .setTextSize('16vp')
       .setImage($r('app.media.Bike'))
       .setText("Racing")
     this.editchip.setChipColor(Color.Blue).setTextColor(Color.Red)
   }
 
-  @State ChoseChip: number = -1
+  @State choseChip: number = -1
   private Set: ChooseChip [] = [
     new ChooseChip(1, "Op1"),
     new ChooseChip(2, "Op2"),
@@ -51,21 +53,24 @@ struct Index {
         })
       }
 
-      Text("Choice Chip").fontSize('26vp')
-      Flex({ justifyContent: FlexAlign.Start }) {
-        ChipSet({
-          choice: this.Set,
-          ChosenChipId: $ChoseChip
-        })
-      }
-
       Text("Filter Chip").fontSize('26vp')
-      Flex({ justifyContent: FlexAlign.Start }) {
+      Row() {
         FilterChip({
           model: this.filterchip1
         })
         FilterChip({
           model: this.filterchip2
+        })
+        FilterChip({
+          model: this.filterchip3
+        })
+      }
+
+      Text("Choice Chip").fontSize('26vp')
+      Flex({ justifyContent: FlexAlign.Start }) {
+        ChipSet({
+          choice: this.Set,
+          chosenChipId: $choseChip
         })
       }
 

@@ -15,11 +15,13 @@
  */
 @Component
 export struct FilterChip {
-  @State delete: number= 1
-  @State tickSize: number= 0
-  @State radius: number= 0
+  @State radius: number = 0
   @State checked: boolean = false
   @State private model: FilterChip.Model = undefined
+
+  aboutToAppear() {
+    if (this.model == null || this.model == undefined) return
+  }
 
   private onClick() {
     if (!this.checked) {
@@ -34,12 +36,18 @@ export struct FilterChip {
         this.radius = 200
       })
       animateTo({ duration: 100 }, () => {
-        this.tickSize = 1
+        this.model.setTickSize('18vp')
+        this.model.setTickMarginLeft('8vp')
+        this.model.setTickMarginTop('7vp')
+        this.model.setTickMarginBottom('7vp')
       })
     }
     else {
       animateTo({ duration: 100 }, () => {
-        this.tickSize = 0
+        this.model.setTickSize('0vp')
+        this.model.setTickMarginLeft('0vp')
+        this.model.setTickMarginTop('0vp')
+        this.model.setTickMarginBottom('0vp')
       })
       this.model.setColor(this.model.getChipColor())
       this.checked = false
@@ -49,49 +57,65 @@ export struct FilterChip {
   private destroy() {
     this.model.setChipColor(this.model.getChipColor())
     animateTo({ duration: 100 }, () => {
-      this.delete = 0
+      this.model.setTextSize('0vp')
+      this.model.setTickSize('0vp')
+      this.model.setTickMarginLeft('0vp')
+      this.model.setTickMarginTop('0vp')
+      this.model.setTickMarginBottom('0vp')
+      this.model.setTextMarginLeft('0vp')
+      this.model.setTextMarginTop('0vp')
+      this.model.setTextMarginBottom('0vp')
+      this.model.setTextMarginRight('0vp')
+      this.model.setCancelChip('0vp')
+      this.model.setMargin('0vp')
     })
   }
 
   build() {
-    Column() {
-      Row() {
-        Image(this.model.getImage())
-          .width(this.model.getImage() == "" || this.model.getImage() == undefined ? '0vp' : this.model.getImageSize())
-          .height(this.model.getImage() == null || this.model.getImage() == undefined ? '0vp' : this.model.getImageSize())
-          .margin(this.model.getImage() == "" || this.model.getImage() == undefined ? '0vp' : '4vp')
-        Image($r("app.media.Tick"))
-          .width(this.tickSize * 18 * this.delete)
-          .height(this.tickSize * this.delete * 18)
-          .scale({ x: this.tickSize, y: this.tickSize })
-          .margin({
-            left: this.tickSize * this.delete * 8,
-            top: this.tickSize * this.delete * 7,
-            bottom: this.tickSize * this.delete * 7
-          })
-        Stack() {
-          Circle({ width: '1vp', height: '1vp' })
-            .fill(this.model.getActiveChipColor())
-            .borderRadius('8vp')
-            .scale({ x: this.radius, y: this.radius })
-            .clip(true)
-          Text(this.model.getText())
-            .fontSize(this.delete * this.model.getTextSize())
-            .fontColor(this.checked ? this.model.getActiveTextColor() : this.model.getTextColor())
-            .margin({ left: this.delete * 12, right: this.delete * 12, top: this.delete * 7, bottom: this.delete * 7 })
-        }
+    if (this.model != null && this.model != undefined) {
+      Column() {
+        Row() {
+          Image(this.model.getImage())
+            .width(this.model.getImage() == "" || this.model.getImage() == undefined ? '0vp' : this.model.getImageSize())
+            .height(this.model.getImage() == "" || this.model.getImage() == undefined ? '0vp' : this.model.getImageSize())
+            .margin(this.model.getImage() == "" || this.model.getImage() == undefined ? '0vp' : '4vp')
+          Image($r("app.media.Tick"))
+            .width(this.model.getTickSize())
+            .height(this.model.getTickSize())
+            .margin({
+              left: this.model.getTickMarginLeft(),
+              top: this.model.getTickMarginTop(),
+              bottom: this.model.getTickMarginBottom()
+            })
+          Stack() {
+            Circle({ width: '1vp', height: '1vp' })
+              .fill(this.model.getActiveChipColor())
+              .borderRadius('8vp')
+              .scale({ x: this.radius, y: this.radius })
+              .clip(true)
+            Text(this.model.getText())
+              .fontSize(this.model.getTextSize())
+              .fontColor(this.checked ? this.model.getActiveTextColor() : this.model.getTextColor())
+              .margin({
+                left: this.model.getTextMarginLeft(),
+                right: this.model.getTextMarginRight(),
+                top: this.model.getTextMarginTop(),
+                bottom: this.model.getTextMarginBottom()
+              })
+          }
 
-        Image($r("app.media.cross"))
-          .width(this.delete * 16)
-          .height(this.delete * 16)
-          .margin({ right: this.delete * 16 })
-          .onClick(() => this.destroy())
+          Image($r("app.media.cross"))
+            .width(this.model.getCancelChip())
+            .height(this.model.getCancelChip())
+            .margin({ right: this.model.getCancelChip() })
+            .onClick(() => this.destroy())
+        }
+        .borderRadius(this.model.getBorderRadius())
+        .backgroundColor(this.checked ? this.model.getColor() : this.model.getChipColor())
+        .onClick(() => this.onClick())
+        .margin(this.model.getMargin())
+        .clip(true)
       }
-      .borderRadius(this.model.getBorderRadius())
-      .backgroundColor(this.checked ? this.model.getColor() : this.model.getChipColor())
-      .onClick(() => this.onClick())
-      .margin(this.delete * 8)
-      .clip(true)
     }
   }
 }
@@ -101,14 +125,153 @@ export namespace FilterChip {
   export class Model {
     private text: string | Resource = ""
     private img: string | Resource = ""
-    private textSize: number= 20
-    private imgSize: number= 16
+    private textSize: string = '20fp'
+    private imgSize: string = '16vp'
     private textColor: ResourceColor | string = '#000000'
     private activeTextColor: ResourceColor | string = '#000000'
     private chipColor: ResourceColor | string = '#DCDCDC'
     private activeChipColor: ResourceColor | string = '#800080'
     private color: ResourceColor | string = this.chipColor
-    private borderRadius: number = 8
+    private borderRadius: string = '8vp'
+    private tickSize: string = '0vp'
+    private tickMarginLeft: string = '0vp'
+    private tickMarginTop: string = '0vp'
+    private tickMarginBottom: string = '0vp'
+    private textMarginLeft: string = '12vp'
+    private textMarginRight: string = '12vp'
+    private textMarginTop: string = '7vp'
+    private textMarginBottom: string = '7vp'
+    private cancelChip: string = '16vp'
+    private margin: string = '8vp'
+    getMargin(): string {
+      return this.margin
+    }
+
+    setMargin(margin: string): Model {
+      if (margin != null && margin != undefined) {
+        this.margin = margin;
+      } else {
+        this.margin = '8vp';
+      }
+      return this
+    }
+
+    getCancelChip(): string {
+      return this.cancelChip
+    }
+
+    setCancelChip(cancelChip: string): Model {
+      if (cancelChip != null && cancelChip != undefined) {
+        this.cancelChip = cancelChip;
+      } else {
+        this.cancelChip = '16vp';
+      }
+      return this
+    }
+
+    getTextMarginLeft(): string {
+      return this.textMarginLeft
+    }
+
+    setTextMarginLeft(textMarginLeft: string): Model {
+      if (textMarginLeft != null && textMarginLeft != undefined) {
+        this.textMarginLeft = textMarginLeft;
+      } else {
+        this.textMarginLeft = '0vp';
+      }
+      return this
+    }
+
+    getTextMarginRight(): string {
+      return this.textMarginRight
+    }
+
+    setTextMarginRight(textMarginRight: string): Model {
+      if (textMarginRight != null && textMarginRight != undefined) {
+        this.textMarginRight = textMarginRight;
+      } else {
+        this.textMarginRight = '0vp';
+      }
+      return this
+    }
+
+    getTextMarginBottom(): string {
+      return this.textMarginBottom
+    }
+
+    setTextMarginBottom(textMarginBottom: string): Model {
+      if (textMarginBottom != null && textMarginBottom != undefined) {
+        this.textMarginBottom = textMarginBottom;
+      } else {
+        this.textMarginBottom = '0vp';
+      }
+      return this
+    }
+
+    getTextMarginTop(): string {
+      return this.textMarginTop
+    }
+
+    setTextMarginTop(textMarginTop: string): Model {
+      if (textMarginTop != null && textMarginTop != undefined) {
+        this.textMarginTop = textMarginTop;
+      } else {
+        this.textMarginTop = '0vp';
+      }
+      return this
+    }
+
+    getTickSize(): string {
+      return this.tickSize
+    }
+
+    setTickSize(tickSize: string): Model {
+      if (tickSize != null && tickSize != undefined) {
+        this.tickSize = tickSize;
+      } else {
+        this.tickSize = '0vp';
+      }
+      return this
+    }
+
+    getTickMarginLeft(): string {
+      return this.tickMarginLeft
+    }
+
+    setTickMarginLeft(tickMarginLeft: string): Model {
+      if (tickMarginLeft != null && tickMarginLeft != undefined) {
+        this.tickMarginLeft = tickMarginLeft;
+      } else {
+        this.tickMarginLeft = '0vp';
+      }
+      return this
+    }
+
+    getTickMarginBottom(): string {
+      return this.tickMarginBottom
+    }
+
+    setTickMarginBottom(tickMarginBottom: string): Model {
+      if (tickMarginBottom != null && tickMarginBottom != undefined) {
+        this.tickMarginBottom = tickMarginBottom;
+      } else {
+        this.tickMarginBottom = '0vp';
+      }
+      return this
+    }
+
+    getTickMarginTop(): string {
+      return this.tickMarginTop
+    }
+
+    setTickMarginTop(tickMarginTop: string): Model {
+      if (tickMarginTop != null && tickMarginTop != undefined) {
+        this.tickMarginTop = tickMarginTop;
+      } else {
+        this.tickMarginTop = '0vp';
+      }
+      return this
+    }
 
     getText(): string | Resource {
       return this.text
@@ -136,41 +299,41 @@ export namespace FilterChip {
       return this
     }
 
-    getImageSize(): number {
+    getImageSize(): string {
       return this.imgSize
     }
 
-    setImageSize(imgSize: number): Model {
+    setImageSize(imgSize: string): Model {
       if (imgSize != null && imgSize != undefined) {
         this.imgSize = imgSize;
       } else {
-        this.imgSize = 16;
+        this.imgSize = '16vp';
       }
       return this
     }
 
-    getTextSize(): number {
+    getTextSize(): string {
       return this.textSize
     }
 
-    setTextSize(textSize: number): Model {
+    setTextSize(textSize: string): Model {
       if (textSize != null && textSize != undefined) {
         this.textSize = textSize;
       } else {
-        this.textSize = 20;
+        this.textSize = '20fp';
       }
       return this
     }
 
-    getBorderRadius(): number {
+    getBorderRadius(): string {
       return this.borderRadius
     }
 
-    setBorderRadius(borderRadius: number): Model {
+    setBorderRadius(borderRadius: string): Model {
       if (borderRadius != null && borderRadius != undefined) {
         this.borderRadius = borderRadius;
       } else {
-        this.borderRadius = 8;
+        this.borderRadius = '8vp';
       }
       return this
     }
@@ -221,9 +384,9 @@ export namespace FilterChip {
     }
 
     reset() {
-      this.textSize = 20
+      this.textSize = '20vp'
 
-      this.borderRadius = 8
+      this.borderRadius = '8vp'
       this.textColor = '#000000'
 
       this.activeTextColor = '#000000'
