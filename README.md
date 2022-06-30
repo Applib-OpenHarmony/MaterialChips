@@ -27,7 +27,7 @@ Usage:
 struct Index {
   private input: InputChip.Model = new InputChip.Model()
   aboutToAppear() {
-    this.input.setText("New Jeresy").setTextSize('24vp').setImage($r('app.media.Location')).setImageSize('26vp').setChipColor('#D3D3D3').setBorderRadius('10vp')
+    this.input.setText("New Jeresy").setTextSize('24fp').setImage($r('app.media.Location')).setImageSize('26vp').setChipColor('#D3D3D3').setBorderRadius('10vp')
   }
   build() {
     Column() {
@@ -97,13 +97,12 @@ struct Index {
   private filter2: FilterChip.Model = new FilterChip.Model()
   private filter3: FilterChip.Model = new FilterChip.Model()
   aboutToAppear() {
-    this.filter1.setText("Op1").setTextSize('20vp')
-    this.filter2.setText("Op2").setTextSize('20vp')
-    this.filter3.setText("Op3").setTextSize('20vp')
+    this.filter1.setText("Op1").setTextSize('20fp')
+    this.filter2.setText("Op2").setTextSize('20fp')
+    this.filter3.setText("Op3").setTextSize('20fp')
   }
   build() {
     Column() {
-      Text("Filter Chip").fontSize('26vp')
       Flex({justifyContent: FlexAlign.Start}) {
         FilterChip({
           model: this.filter1
@@ -140,7 +139,6 @@ struct Index {
   }
   build() {
     Column() {
-      Text("Action Chip").fontSize('26vp')
       Flex({justifyContent: FlexAlign.Start}) {
         ActionChip({
           model: this.action
@@ -171,7 +169,6 @@ struct Index {
   }
   build() {
     Column() {
-      Text("Edit Chip").fontSize('26vp')
       Flex({justifyContent: FlexAlign.Start}) {
         EditChip({
           model: this.edit
