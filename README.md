@@ -25,16 +25,15 @@ Usage:
 @Entry
 @Component
 struct Index {
-  private inputchip1: InputChip.Model = new InputChip.Model()
+  private input: InputChip.Model = new InputChip.Model()
   aboutToAppear() {
-    this.inputchip1.setText("New Jeresy").setTextSize(24).setImage($r('app.media.Location')).setImageSize(26).setChipColor('#D3D3D3').setBorderRadius(10)
+    this.input.setText("New Jeresy").setTextSize('24vp').setImage($r('app.media.Location')).setImageSize('26vp').setChipColor('#D3D3D3').setBorderRadius('10vp')
   }
   build() {
     Column() {
-      Text("Input Chip").fontSize('26vp')
       Flex({justifyContent: FlexAlign.Start}) {
         InputChip({
-          model: this.inputchip1
+          model: this.input
         })
       }
     }.alignItems(HorizontalAlign.Start)
@@ -49,25 +48,30 @@ In sets that contain at least two options, choice chips represent a single selec
 ```
 Import:
 
-import { ChipSet, ChooseChip } from '@ohos/materialchips'
+import { ChipSet, ChoiceChip } from '@ohos/materialchips'
 
 Usage:
 
 @Entry
 @Component
 struct Index {
-  @State ChoseChip: number = -1
-  private Set: ChooseChip [] = [
-    new ChooseChip(1, "Op1"),
-    new ChooseChip(2, "Op2"),
-    new ChooseChip(3, "Op3")
+  private choice: ChipSet.Model = new ChipSet.Model()
+  @State choseChip: number = -1
+  private Set: ChipSet [] = [
+    new ChipSet(1, "Op1"),
+    new ChipSet(2, "Op2"),
+    new ChipSet(3, "Op3")
   ]
+  aboutToAppear() {
+    this.choice.setItems(this.Set)
+  }
   build() {
     Column() {
       Flex({ justifyContent: FlexAlign.Start }) {
-        ChipSet({
+        ChoiceChip({
           choice: this.Set,
-          ChosenChipId: $ChoseChip
+          chosenChipId: $choseChip,
+          model: this.choice
         })
       }
     }
@@ -89,26 +93,26 @@ Usage:
 @Entry
 @Component
 struct Index {
-  private filterchip1: FilterChip.Model = new FilterChip.Model()
-  private filterchip2: FilterChip.Model = new FilterChip.Model()
-  private filterchip3: FilterChip.Model = new FilterChip.Model()
+  private filter1: FilterChip.Model = new FilterChip.Model()
+  private filter2: FilterChip.Model = new FilterChip.Model()
+  private filter3: FilterChip.Model = new FilterChip.Model()
   aboutToAppear() {
-    this.filterchip1.setText("Op1").setTextSize('20vp')
-    this.filterchip2.setText("Op2").setTextSize('20vp')
-    this.filterchip3.setText("Op3").setTextSize('20vp')
+    this.filter1.setText("Op1").setTextSize('20vp')
+    this.filter2.setText("Op2").setTextSize('20vp')
+    this.filter3.setText("Op3").setTextSize('20vp')
   }
   build() {
     Column() {
       Text("Filter Chip").fontSize('26vp')
       Flex({justifyContent: FlexAlign.Start}) {
         FilterChip({
-          model: this.filterchip1
+          model: this.filter1
         })
         FilterChip({
-          model: this.filterchip2
+          model: this.filter2
         })
         FilterChip({
-          model: this.filterchip3
+          model: this.filter3
         })
       }
     }.alignItems(HorizontalAlign.Start)
@@ -130,16 +134,16 @@ Usage:
 @Entry
 @Component
 struct Index {
-  private actionchip: ActionChip.Model = new ActionChip.Model()
+  private action: ActionChip.Model = new ActionChip.Model()
   aboutToAppear() {
-    this.actionchip.setText("Racing").setTextSize(24).setImage($r('app.media.Bike')).setImageSize(26).setBorderRadius(10)
+    this.action.setText("Racing").setTextSize('24fp').setImage($r('app.media.Bike')).setImageSize('26vp').setBorderRadius('10vp')
   }
   build() {
     Column() {
       Text("Action Chip").fontSize('26vp')
       Flex({justifyContent: FlexAlign.Start}) {
         ActionChip({
-          model: this.actionchip
+          model: this.action
         })
       }
     }.alignItems(HorizontalAlign.Start)
@@ -161,16 +165,16 @@ Usage:
 @Entry
 @Component
 struct Index {
-  private editchip: EditChip.Model = new EditChip.Model()
+  private edit: EditChip.Model = new EditChip.Model()
   aboutToAppear() {
-    this.editchip.setTextSize(24).setTextColor(Color.Blue)
+    this.edit.setTextSize('24fp').setTextColor(Color.Blue)
   }
   build() {
     Column() {
       Text("Edit Chip").fontSize('26vp')
       Flex({justifyContent: FlexAlign.Start}) {
         EditChip({
-          model: this.editchip
+          model: this.edit
         })
       }
     }.alignItems(HorizontalAlign.Start)

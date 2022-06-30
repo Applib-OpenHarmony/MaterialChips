@@ -68,6 +68,8 @@ export struct FilterChip {
       this.model.setTextMarginRight('0vp')
       this.model.setCancelChip('0vp')
       this.model.setMargin('0vp')
+      this.model.setImageSize('0vp')
+      this.model.setMarginImage('0vp')
     })
   }
 
@@ -78,7 +80,7 @@ export struct FilterChip {
           Image(this.model.getImage())
             .width(this.model.getImage() == "" || this.model.getImage() == undefined ? '0vp' : this.model.getImageSize())
             .height(this.model.getImage() == "" || this.model.getImage() == undefined ? '0vp' : this.model.getImageSize())
-            .margin(this.model.getImage() == "" || this.model.getImage() == undefined ? '0vp' : '4vp')
+            .margin(this.model.getImage() == "" || this.model.getImage() == undefined ? '0vp' : this.model.getMarginImage())
           Image($r("app.media.Tick"))
             .width(this.model.getTickSize())
             .height(this.model.getTickSize())
@@ -143,6 +145,20 @@ export namespace FilterChip {
     private textMarginBottom: string = '7vp'
     private cancelChip: string = '16vp'
     private margin: string = '8vp'
+    private marginImage: string = '4vp'
+    getMarginImage(): string {
+      return this.marginImage
+    }
+
+    setMarginImage(marginImage: string): Model {
+      if (marginImage != null && marginImage != undefined) {
+        this.marginImage = marginImage;
+      } else {
+        this.marginImage = '4vp';
+      }
+      return this
+    }
+
     getMargin(): string {
       return this.margin
     }
@@ -384,15 +400,24 @@ export namespace FilterChip {
     }
 
     reset() {
-      this.textSize = '20vp'
-
+      this.textSize = '20fp'
+      this.textMarginTop = '7vp'
+      this.textMarginBottom = '7vp'
+      this.textMarginRight = '12vp'
+      this.textMarginLeft = '12vp'
+      this.tickSize = '0vp'
+      this.tickMarginLeft = '0vp'
+      this.tickMarginBottom = '0vp'
+      this.tickMarginTop = '0vp'
+      this.margin = '8vp'
+      this.imgSize = '16vp'
+      this.marginImage = '4vp'
       this.borderRadius = '8vp'
       this.textColor = '#000000'
-
       this.activeTextColor = '#000000'
       this.chipColor = '#DCDCDC'
-
       this.activeChipColor = '#800080'
+      this.color = this.chipColor
     }
   }
 }

@@ -94,7 +94,7 @@ export struct EditChip {
                 .borderRadius('8vp')
                 .scale({ x: this.radius, y: this.radius })
                 .clip(true)
-              Text(this.model.getText())
+              Text(this.text)
                 .fontSize(this.model.getTextSize())
                 .fontColor(this.model.getTextColor())
                 .margin({
@@ -126,7 +126,6 @@ export namespace EditChip {
 
   export class Model {
     private heightTextScale: string = '40vp'
-    private text: string | Resource = ""
     private fontTextScale: string = '30fp'
     private textSize: string = '20fp'
     private textMarginLeft: string = '0vp'
@@ -152,21 +151,17 @@ export namespace EditChip {
       return this
     }
 
-    getText(): string | Resource {
-      return this.text
-    }
-
-    setText(text: string | Resource): Model {
-      if (text != null && text != undefined) {
-        this.text = text;
-      } else {
-        this.text = "";
-      }
-      return this
-    }
-
     getTextSize(): string {
       return this.textSize
+    }
+
+    setTextSize(textSize: string): Model {
+      if (textSize != null && textSize != undefined) {
+        this.textSize = textSize;
+      } else {
+        this.textSize = '20fp';
+      }
+      return this
     }
 
     getCancelChip(): string {
@@ -234,15 +229,6 @@ export namespace EditChip {
       return this
     }
 
-    setTextSize(textSize: string): Model {
-      if (textSize != null && textSize != undefined) {
-        this.textSize = textSize;
-      } else {
-        this.textSize = '20fp';
-      }
-      return this
-    }
-
     getHeightTextScale(): string {
       return this.heightTextScale
     }
@@ -301,12 +287,18 @@ export namespace EditChip {
     }
 
     reset() {
+      this.heightTextScale = '40vp'
+      this.fontTextScale = '30fp'
       this.textSize = '20fp'
-
+      this.textMarginTop = '7vp'
+      this.textMarginBottom = '7vp'
+      this.textMarginRight = '12vp'
+      this.textMarginLeft = '12vp'
+      this.margin = '8vp'
+      this.cancelChip = '16vp'
       this.borderRadius = '8vp'
       this.textColor = '#000000'
       this.chipColor = '#DCDCDC'
-
     }
   }
 }
