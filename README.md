@@ -182,7 +182,7 @@ struct Index {
 ## Demo
 ![Animation.png](Images/Animation.gif)
 ## Compatibility
-Supports OpenHarmony API version 8
+Supports OpenHarmony API version 8 and above
 ## Directory
 ```
 |---- MaterialChip
