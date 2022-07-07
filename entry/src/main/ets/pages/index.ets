@@ -35,7 +35,7 @@ struct Index {
     this.input.setTextColor('#938200').setText("New Jeresy").setImage($r('app.media.Location'))
     this.filter1.setActiveChipColor(Color.Blue).setText("Cricket").setImage($r('app.media.Location'))
     this.filter2.setTextSize('24fp').setActiveChipColor(Color.Red).setText("Football")
-    this.filter3.setActiveChipColor(Color.Red).setText("Football")
+    this.filter3.setActiveChipColor(Color.Red).setText("Basketball")
     this.action.setActiveChipColor(Color.Green)
       .setTextSize('16fp')
       .setImage($r('app.media.Bike'))
